@@ -6,14 +6,7 @@ import streamlit as st
 
 @st.cache_data
 def decrypted(path):
-    with open(path, "rb") as file:
-        encrypted_data = file.read()
-
-    cipher_suite = Fernet(st.secrets.access_credentials.filepwd.encode())
-    decrypted_data = cipher_suite.decrypt(encrypted_data)
-    with open("temp_data.h5", "wb") as file:
-        file.write(decrypted_data)
-    df = pd.read_hdf("temp_data.h5")
+    df = pd.read_hdf(path)
     return df
 
 
